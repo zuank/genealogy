@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "familysBox": "/components/familysBox/index"
+  }
+}

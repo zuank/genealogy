@@ -1,0 +1,5 @@
+<!--components/familyBox/index.wxml-->
+<view class="box">
+    <image class="face" src="{{face}}"></image>
+    <text>姓名</text>
+</view>

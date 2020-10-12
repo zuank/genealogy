@@ -1,0 +1,13 @@
+/* components/familyBox/index.wxss */
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 140rpx;
+}
+.face {
+    width: 120rpx;
+    height: 120rpx;
+}
