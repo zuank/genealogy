@@ -40,7 +40,7 @@ Page({
       }
     })
   },
-  // 添加家谱
+  //新建家谱
   onAddGenealogy: function(e) {
     wx.cloud.callFunction({
       name:'genealogy',
