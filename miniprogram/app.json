@@ -5,7 +5,7 @@
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#443322",
+    "navigationBarBackgroundColor": "#CCCCCC",
     "navigationBarTitleText": "全民家谱",
     "navigationBarTextStyle": "black"
   },

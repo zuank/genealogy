@@ -1,6 +1,5 @@
 <!--index.wxml-->
 <view class="container">
-
     <button
         wx:if="{{!genealogyInfo._id&&ready}}"
         open-type="getUserInfo"
