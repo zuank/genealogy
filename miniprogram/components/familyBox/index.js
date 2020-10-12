@@ -7,6 +7,10 @@ Component({
     face:{
       type: String,
       value: './user-unlogin.png'
+    },
+    nickName:{
+      type: String,
+      value:'null'
     }
   },
 

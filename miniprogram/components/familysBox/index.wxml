@@ -1,2 +1,11 @@
 <!--components/familyBox/index.wxml-->
-<familyBox></familyBox>
+<view class="warp">
+  <!-- 家庭top -->
+  <view class="warp-title">
+    <familyBox face="{{members.avatarUrl}}" nickName="{{members.nickName}}"></familyBox>
+    <familyBox wx:if="{{members.companion.avatarUrl}}" face="{{members.companion.avatarUrl}}" nickName="{{members.companion.nickName}}"></familyBox>
+  </view>
+  <view wx:if="{{members.members.length}}" class="warp-members">
+    <familysBox wx:for="{{members.members}}" members="{{item}}" wx:key="index" /> 
+  </view>
+</view>

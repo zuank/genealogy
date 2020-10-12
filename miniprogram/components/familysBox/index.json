@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "familyBox": "/components/familyBox/index"
+    "familyBox": "/components/familyBox/index",
+    "familysBox": "/components/familysBox/index"
   }
 }

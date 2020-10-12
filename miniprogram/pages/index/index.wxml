@@ -16,4 +16,7 @@
         wx:if="{{!hasAuth&&ready}}"
     >查看家谱
     </button>
+    <view class="family-view">
+      <familysBox members="{{genealogyInfo.members}}"></familysBox>
+    </view>
 </view>
