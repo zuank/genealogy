@@ -4,7 +4,7 @@
   align-items: center;
   display: inline-flex;
   flex-direction: column;
-  margin: 10rpx 20rpx;
+  margin: 10rpx;
   border: 1rpx solid #ccc;
 }
 .warp .warp-title {
