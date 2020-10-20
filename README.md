@@ -8,4 +8,28 @@
 - ✅ 页面结构设计
 - ⬜️ 邀请伴侣加入家谱中
 
+## 数据库
 
+- 家谱表
+
+  ``` json
+  { 
+    "_id":"",             // 记录ID
+    "creator":"",         // OPENID
+    "name":"幸福一家人",    // 家谱名称
+    "members":{           // 成员
+      "nickName":"油条子", // 家族顶点昵称 
+      "gender":1,
+      "language":"zh_CN",
+      "city":"Suzhou",
+      "province":"Jiangsu",
+      "country":"China",
+      "avatarUrl":"",
+      "companion":{
+        "avatarUrl":"",
+        "nickName":"伴侣"
+        },
+      "members":[]
+    }
+  }
+  ```

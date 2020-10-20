@@ -6,21 +6,32 @@ Page({
     userInfo: {},
     genealogyInfo:{},
     ready: false,
-    hasAuth: true
+    hasAuth: true,
+    isPopShow: false,
   },
 
   onLoad: function() {
     // 获取授权信息
     wx.getSetting({
       success: res => {
-        console.log(this,res)
         if (res.authSetting['scope.userInfo']) {
           this.setData({
             hasAuth: true
           })
+          console.log(this,res)
           this.onSearchGenealogy()
         }
       }
+    })
+  },
+  showPop:function(){
+    this.setData({
+      isPopShow: true
+    })
+  },
+  closePop:function(){
+    this.setData({
+      isPopShow: false
     })
   },
   // 查询家谱
@@ -30,13 +41,15 @@ Page({
       data:{
         action:'search'
       },
-      success:(res)=>{
+      complete:(res)=>{
+        console.log(res)
+        console.log(JSON.stringify(res.result.userInfo),'999',JSON.stringify(res.result.genealogyInfo))
         this.setData({
           userInfo: res.result.userInfo,
           genealogyInfo: res.result.genealogyInfo,
           ready: true
         })
-        console.log(res)
+        app.globalData.genealogyId = res.result.genealogyInfo._id
       }
     })
   },

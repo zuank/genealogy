@@ -1,0 +1,19 @@
+<!--components/identityPopBox/index.wxml-->
+<view class="pop">
+  <view class="cover" bind:tap="close"></view>
+  <view class="buttons">
+    <button
+        size="default"
+    >邀请其父亲加入
+    </button>
+    <button
+        size="default"
+    >邀请其儿女加入
+    </button>
+    <button
+        size="default"
+    >邀请其伴侣加入
+    </button>
+  </view>
+
+</view>

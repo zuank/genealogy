@@ -16,7 +16,9 @@
         wx:if="{{!hasAuth&&ready}}"
     >查看家谱
     </button>
-    <view class="family-view">
-      <familysBox members="{{genealogyInfo.members}}"></familysBox>
+    <view class="family-view" wx:if="{{genealogyInfo.members}}">
+      <familysBox members="{{genealogyInfo.members}}" bind:showPop="showPop"></familysBox>
     </view>
+    <identityPopBox wx:if="{{isPopShow}}" bind:closePop="closePop"></identityPopBox>
+    <view >{{globalData.invite.openId}}</view>
 </view>

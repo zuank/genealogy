@@ -1,7 +1,7 @@
 <!--components/familyBox/index.wxml-->
 <view class="warp">
   <!-- 家庭top -->
-  <view class="warp-title">
+  <view class="warp-title" bindtap="setBaseUser">
     <familyBox face="{{members.avatarUrl}}" nickName="{{members.nickName}}"></familyBox>
     <familyBox wx:if="{{members.companion.avatarUrl}}" face="{{members.companion.avatarUrl}}" nickName="{{members.companion.nickName}}"></familyBox>
   </view>
