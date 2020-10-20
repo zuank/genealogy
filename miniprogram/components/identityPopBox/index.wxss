@@ -20,7 +20,7 @@
   z-index: 10;
 }
 
-.pop .buttons {
+.pop .types {
   width: 500rpx;
   padding: 20rpx;
   z-index: 11;

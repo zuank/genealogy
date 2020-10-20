@@ -1,18 +1,15 @@
 <!--components/identityPopBox/index.wxml-->
 <view class="pop">
   <view class="cover" bind:tap="close"></view>
-  <view class="buttons">
+  <view class="types">
+    <view class="type-item" bind:tap="shareInvite" data-type='0'>邀请其父亲加入</view>
+    <view class="type-item" bind:tap="shareInvite" data-type='1'>邀请其儿女加入</view>
+    <view class="type-item" bind:tap="shareInvite" data-type='2'>邀请其伴侣加入</view>
+    
     <button
         size="default"
+        open-type="share"
     >邀请其父亲加入
-    </button>
-    <button
-        size="default"
-    >邀请其儿女加入
-    </button>
-    <button
-        size="default"
-    >邀请其伴侣加入
     </button>
   </view>
 

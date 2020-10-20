@@ -20,6 +20,9 @@ Component({
   methods: {
     close(){
       this.triggerEvent('closePop',{},{bubbles:true,composed:true})
+    },
+    shareInvite(e){
+      console.log(e.currentTarget.dataset.type)
     }
   }
 })
