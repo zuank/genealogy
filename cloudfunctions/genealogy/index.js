@@ -22,12 +22,6 @@ exports.main = async (event, context) => {
       return addNode(event)
       break;
   }
-  return {
-    event,
-    openid: wxContext.OPENID,
-    appid: wxContext.APPID,
-    unionid: wxContext.UNIONID,
-  }
 }
 
 // 添加一个家谱记录
@@ -74,10 +68,17 @@ async function searchGenealogy(){
   }).get()
   if (userRes.data.length) {
     userInfo = userRes.data[0]
-    const genealogyRes = await db.collection('genealogy').doc(userInfo.genealogyId).get()
+    const genealogyRes = await db.collection('genealogy').where({_id:userInfo.genealogyId}).get()
+    console.log(genealogyRes)
+    if (genealogyRes.data[0]) {
+      return {
+        userInfo,
+        genealogyInfo:genealogyRes.data[0]
+      }
+    }
     return {
       userInfo,
-      genealogyInfo:genealogyRes.data
+      genealogyInfo:{}
     }
   }
   return {
@@ -95,7 +96,7 @@ async function addNode(info){
    * 2 伴侣
    */
   const genealogyRes = await db.collection('genealogy').doc(info.genealogyId).get()
-  const memberNode = findNode(genealogyRes.members, info.openId)
+  const memberNode = findNode(genealogyRes.data.members, info.openId)
   switch (info.type) {
     case "0":
       
@@ -118,12 +119,12 @@ async function addNode(info){
 
   const updateRes = await db.collection('genealogy').doc(info.genealogyId).update({
     data:{
-      members:genealogyRes.members
+      members:genealogyRes.data.members
     }
   })
 
   return {
-    genealogyInfo:genealogyRes
+    genealogyInfo:genealogyRes.data
   }
 
 }

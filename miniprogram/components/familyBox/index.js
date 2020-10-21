@@ -10,7 +10,7 @@ Component({
     },
     nickName:{
       type: String,
-      value:'null'
+      value:'待加入'
     }
   },
 
