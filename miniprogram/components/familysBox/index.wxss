@@ -6,10 +6,21 @@
   flex-direction: column;
   margin: 10rpx;
   border: 1rpx solid #ccc;
+  background-color: #cf8d2e;
+}
+.warp .warp  {
+  background-color: #e4e932;
+}
+.warp .warp .warp  {
+  background-color: #2c9f45;
+}
+.warp .warp .warp .warp  {
+  background-color: #52325d;
 }
 .warp .warp-title {
   display: flex;
   justify-content: space-around;
+  background-color: #ff6c5f;
   width: 400rpx;
   padding: 10rpx 0;
   margin: 10rpx;

@@ -18,6 +18,9 @@ exports.main = async (event, context) => {
     case 'search':
       return searchGenealogy()
       break;
+    case 'addNode':
+      return addNode(event)
+      break;
   }
   return {
     event,
@@ -35,6 +38,8 @@ async function addGenealogy(userInfo){
       members:{
         ...userInfo,
         openId: wxContext.OPENID,
+        members:[],
+        companion:{}
       }
   }
   const genealogyRes = await db.collection('genealogy').add({
@@ -79,4 +84,61 @@ async function searchGenealogy(){
     userInfo:{},
     genealogyInfo:{}
   }
+}
+
+// 添加成员节点
+async function addNode(info){
+  /**
+   * type
+   * 0 父亲
+   * 1 儿女
+   * 2 伴侣
+   */
+  const genealogyRes = await db.collection('genealogy').doc(info.genealogyId).get()
+  const memberNode = findNode(genealogyRes.members, info.openId)
+  switch (info.type) {
+    case "0":
+      
+      break;
+    case "1":
+      
+      break;
+    case "2":
+      memberNode.companion = {
+        avatarUrl:'',
+        nickName:'',
+        tempId:'',
+        openId:''
+      }
+      break;
+  
+    default:
+      break;
+  }
+
+  const updateRes = await db.collection('genealogy').doc(info.genealogyId).update({
+    data:{
+      members:genealogyRes.members
+    }
+  })
+
+  return {
+    genealogyInfo:genealogyRes
+  }
+
+}
+
+// 递归查找用户节点
+function findNode(obj, id, type){
+  let _obj = {}
+  if (obj[type||'openId'] == id){
+    _obj = obj
+  } else if (obj.members && obj.members.length) {
+    obj.members.forEach(item => {
+      if (findNode(item,id)[type||'openId']){
+        _obj = findNode(item,id)
+      }
+    });
+  }
+  return _obj
 }

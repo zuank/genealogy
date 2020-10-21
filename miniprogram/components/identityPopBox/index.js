@@ -1,4 +1,5 @@
 // components/identityPopBox/index.js
+const app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -11,7 +12,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    activeIndex:'',
   },
 
   /**
@@ -22,7 +23,23 @@ Component({
       this.triggerEvent('closePop',{},{bubbles:true,composed:true})
     },
     shareInvite(e){
-      console.log(e.currentTarget.dataset.type)
+      this.setData({
+        activeIndex:e.currentTarget.dataset.type
+      })
+    },
+    addNode(){
+      wx.cloud.callFunction({
+        name:'genealogy',
+        data:{
+          action:'addNode',
+          type:this.activeIndex,
+          genealogyId:app.globalData.genealogyId,
+          openId:app.globalData.chooseOpenId,
+        },
+        complete:(res)=>{
+
+        }
+      })
     }
   }
 })

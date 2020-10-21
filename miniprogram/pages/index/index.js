@@ -10,6 +10,17 @@ Page({
     isPopShow: false,
   },
 
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: app.globalData.genealogyId,
+      path: `/page/index?genealogyId=${app.globalData.genealogyId}`
+    }
+  },
+
   onLoad: function() {
     // 获取授权信息
     wx.getSetting({

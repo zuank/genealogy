@@ -21,9 +21,26 @@
 }
 
 .pop .types {
-  width: 500rpx;
+  width: 400rpx;
   padding: 20rpx;
   z-index: 11;
   border-radius: 5rpx;
   background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pop .types .type-item {
+  margin: 20rpx;
+  padding: 20rpx;
+  border: 1px solid #cccccc;
+  border-radius: 10rpx;
+}
+
+.pop .types .type-item.active {
+  border: 1px solid #abcdfa;
+  color: #abcdfa;
+
 }

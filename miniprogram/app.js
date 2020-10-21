@@ -15,11 +15,14 @@ App({
       })
     }
 
+    wx.hideShareMenu({
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
+    
+
     this.globalData = {
-      invite:{
-        openId:'',
-        type:''
-      }
+      genealogyId:'',
+      chooseOpenId:''
     }
   }
 })

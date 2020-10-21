@@ -23,8 +23,7 @@ Component({
   methods: {
     setBaseUser:function() {
       this.triggerEvent('showPop',{},{bubbles:true,composed:true})
-      app.globalData.invite.openId = this.data.members.openId
-      console.log(app.globalData)
+      app.globalData.chooseOpenId = this.data.members.openId
     }
   }
 })
