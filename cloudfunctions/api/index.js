@@ -38,10 +38,11 @@ async function getUserInfo(){
 
 
 // 添加一个家谱记录
-async function addGenealogy(userInfo){
+async function addGenealogy(info){
+  const userInfo = info.userInfo
   const params = {
       creator:wxContext.OPENID, // 创建者OPENID
-      name:'幸福一家人', // 家谱名称
+      name:info.name||'幸福一家人', // 家谱名称
       members:{
         ...userInfo,
         openId: wxContext.OPENID,
@@ -56,7 +57,6 @@ async function addGenealogy(userInfo){
       info:params
     }
   })
-  console.log(genealogyRes)
 
   if (genealogyRes.result._id) {
     // 查询用户表 是否已经存在用户
@@ -69,7 +69,7 @@ async function addGenealogy(userInfo){
         }
       }
     })
-    console.log(searchRes)
+    // 更新用户表
     if (searchRes.result._id){
       const updateRes = await cloud.callFunction({
         name:'user',
@@ -85,7 +85,7 @@ async function addGenealogy(userInfo){
         }
       })
       console.log(updateRes)
-      if (updateRes.result._id) {
+      if (updateRes.result.stats.updated==1) {
         return {
           ...searchRes.result,
           genealogyInfoList:[...searchRes.result.genealogyInfoList,{
@@ -95,6 +95,7 @@ async function addGenealogy(userInfo){
         }
       }
     } else {
+      // 新增一个用户
       const addRes = await cloud.callFunction({
         name:'user',
         data:{
