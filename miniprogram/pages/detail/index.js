@@ -3,11 +3,9 @@ const app = getApp()
 
 Page({
   data: {
-    userInfo: {},
     genealogyInfo:{},
-    ready: false,
-    hasAuth: true,
     isPopShow: false,
+    _id: ''
   },
 
   onShareAppMessage: function (res) {
@@ -17,7 +15,7 @@ Page({
     }
     return {
       title: app.globalData.genealogyId,
-      path: `/page/index?genealogyId=${app.globalData.genealogyId}`
+      path: `/pages/index/index?genealogyId=${app.globalData.genealogyId}`
     }
   },
   showPop:function(){
@@ -28,6 +26,24 @@ Page({
   closePop:function(){
     this.setData({
       isPopShow: false
+    })
+  },
+  onLoad:function(option){
+    this.setData({
+      _id:option._id
+    })
+    console.log(option)
+  },
+  getGenealogyInfo(){
+    wx.cloud.callFunction({
+      name:'api',
+      data:{
+        action:'getGenealogyInfo',
+        _id:this._id
+      },
+      complete:(res)=>{
+        console.log(res)
+      }
     })
   }
 })

@@ -1,7 +1,12 @@
 <!--miniprogram/pages/index/index.wxml-->
-<view >
+<view class="container">
+  <view class="genealogy-list" wx:if="{{userInfo.genealogyInfoList.length}}">
+    <view class="genealogy-item" wx:for="{{userInfo.genealogyInfoList}}" wx:key="index" bind:tap="jumpDeatil" data-id="{{item._id}}">
+      {{item.name}}
+    </view>
+  </view>
   <button
-        wx:if="{{!userInfo._id}}"
+        wx:if="{{userInfo.genealogyInfoList.length<6}}"
         open-type="getUserInfo"
         bindgetuserinfo="onAddGenealogy"
         type="default"
@@ -13,7 +18,6 @@
         open-type="getUserInfo"
         bindgetuserinfo="onGetAuth"
         type="default"
-        class="new-genealogy"
     >查看家谱
     </button>
 </view>

@@ -9,6 +9,8 @@ exports.main = async (event, context) => {
   wxContext = await cloud.getWXContext()
 
   switch (event.action) {
+    case 'getGenealogyInfo':
+      return getGenealogyInfo(event.info)
     case 'getUserInfo':
       return getUserInfo()
       break;
@@ -18,7 +20,9 @@ exports.main = async (event, context) => {
   }
 }
 
-// 获取基础信息
+
+
+// 获取用户信息
 async function getUserInfo(){
   // 查询用户表 是否已经存在用户
   const searchRes = await cloud.callFunction({
