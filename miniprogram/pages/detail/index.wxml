@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="family-view" wx:if="{{genealogyInfo.members}}">
+      <familysBox members="{{genealogyInfo.members}}" bind:showPop="showPop"></familysBox>
+    </view>
+    <identityPopBox wx:if="{{isPopShow}}" bind:closePop="closePop"></identityPopBox>
+</view>

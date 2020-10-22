@@ -1,24 +1,19 @@
-<!--index.wxml-->
-<view class="container">
-    <button
-        wx:if="{{!genealogyInfo._id&&ready}}"
+<!--miniprogram/pages/index/index.wxml-->
+<view >
+  <button
+        wx:if="{{!userInfo._id}}"
         open-type="getUserInfo"
         bindgetuserinfo="onAddGenealogy"
-        size="default"
+        type="default"
         class="new-genealogy"
     >开始创建家谱
     </button>
     <button
+        wx:if="{{!hasAuth}}"
         open-type="getUserInfo"
         bindgetuserinfo="onGetAuth"
-        size="default"
+        type="default"
         class="new-genealogy"
-        wx:if="{{!hasAuth&&ready}}"
     >查看家谱
     </button>
-    <view class="family-view" wx:if="{{genealogyInfo.members}}">
-      <familysBox members="{{genealogyInfo.members}}" bind:showPop="showPop"></familysBox>
-    </view>
-    <identityPopBox wx:if="{{isPopShow}}" bind:closePop="closePop"></identityPopBox>
-    <view >{{globalData.invite.openId}}</view>
 </view>

@@ -1,6 +1,3 @@
 {
-  "usingComponents": {
-    "familysBox": "/components/familysBox/index",
-    "identityPopBox": "/components/identityPopBox/index"
-  }
+  "usingComponents": {}
 }

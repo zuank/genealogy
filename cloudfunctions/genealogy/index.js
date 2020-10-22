@@ -2,18 +2,11 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
-let wxContext = null
 // 云函数入口函数
 exports.main = async (event, context) => {
-  wxContext = await cloud.getWXContext()
-  if (!wxContext.OPENID) {
-    return {
-      msg:'请授权'
-    }
-  }
   switch (event.action) {
     case "add":
-      return addGenealogy(event.userInfo)
+      return addGenealogy(event.info)
       break;
     case 'search':
       return searchGenealogy()
@@ -25,39 +18,18 @@ exports.main = async (event, context) => {
 }
 
 // 添加一个家谱记录
-async function addGenealogy(userInfo){
-  const params = {
-      creator:wxContext.OPENID, // 创建者OPENID
-      name:'幸福一家人', // 家谱名称
-      members:{
-        ...userInfo,
-        openId: wxContext.OPENID,
-        members:[],
-        companion:{}
-      }
-  }
+async function addGenealogy(info){
   const genealogyRes = await db.collection('genealogy').add({
     // data 字段表示需新增的 JSON 数据
-    data: params
+    data: info
   })
   if (genealogyRes._id) {
-    const userRes = await db.collection('user').add({
-      // data 字段表示需新增的 JSON 数据
-      data: {
-        genealogyId:genealogyRes._id,
-        ...userInfo
-      }
-    })
-    if (userRes._id) {
-      return {
-        _id:genealogyRes._id,
-        ...params
-      }
+    return {
+      _id:genealogyRes._id,
+      ...info
     }
   }
-  return {
-    msg: '请重试'
-  }
+  return {}
 }
 
 // 查询家谱

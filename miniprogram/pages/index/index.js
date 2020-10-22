@@ -1,26 +1,18 @@
-//index.js
+// miniprogram/pages/index/index.js
 const app = getApp()
-
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    userInfo: {},
-    genealogyInfo:{},
-    ready: false,
-    hasAuth: true,
-    isPopShow: false,
+    userInfo:{},
+    hasAuth:false
   },
 
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
-    return {
-      title: app.globalData.genealogyId,
-      path: `/page/index?genealogyId=${app.globalData.genealogyId}`
-    }
-  },
-
+  /**
+   * 生命周期函数--监听页面加载
+   */
   onLoad: function() {
     // 获取授权信息
     wx.getSetting({
@@ -29,58 +21,92 @@ Page({
           this.setData({
             hasAuth: true
           })
-          console.log(this,res)
-          this.onSearchGenealogy()
+          this.getUserInfo()
         }
-      }
-    })
-  },
-  showPop:function(){
-    this.setData({
-      isPopShow: true
-    })
-  },
-  closePop:function(){
-    this.setData({
-      isPopShow: false
-    })
-  },
-  // 查询家谱
-  onSearchGenealogy: function() {
-    wx.cloud.callFunction({
-      name:'genealogy',
-      data:{
-        action:'search'
-      },
-      complete:(res)=>{
-        console.log(res)
-        console.log(JSON.stringify(res.result.userInfo),'999',JSON.stringify(res.result.genealogyInfo))
-        this.setData({
-          userInfo: res.result.userInfo,
-          genealogyInfo: res.result.genealogyInfo,
-          ready: true
-        })
-        app.globalData.genealogyId = res.result.genealogyInfo._id
-      }
-    })
-  },
-  //新建家谱
-  onAddGenealogy: function(e) {
-    wx.cloud.callFunction({
-      name:'genealogy',
-      data:{
-        action:'add',
-        userInfo:e.detail.userInfo
-      },
-      success:(res)=>{
-        console.log(res)
       }
     })
   },
   // 获取授权
   onGetAuth(e){
     if (e.detail.userInfo) {
-      this.onSearchGenealogy()
+      this.getUserInfo()
     }
+  },
+  // 查询家谱
+  getUserInfo: function() {
+    wx.cloud.callFunction({
+      name:'api',
+      data:{
+        action:'getUserInfo'
+      },
+      complete:(res)=>{
+        console.log(res)
+        this.setData({
+          userInfo: res.result,
+        })
+        app.globalData.userInfo = res.result
+      }
+    })
+  },
+  //新建家谱
+  onAddGenealogy: function(e) {
+    wx.cloud.callFunction({
+      name:'api',
+      data:{
+        action:'addGenealogy',
+        userInfo:e.detail.userInfo
+      },
+      complete:(res)=>{
+        console.log(res)
+      }
+    })
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
   }
 })
