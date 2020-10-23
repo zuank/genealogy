@@ -46,6 +46,10 @@ Page({
         }
       },
       complete:(res)=>{
+        // this.genealogyInfo = res.result
+        this.setData({
+          genealogyInfo:res.result
+        })
         console.log(res)
       }
     })
