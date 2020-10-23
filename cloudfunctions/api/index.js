@@ -19,8 +19,25 @@ exports.main = async (event, context) => {
       break;
   }
 }
+// 获取家谱信息
 
+async function getGenealogyInfo(info){
+  console.log(info)
+  const searchRes = await cloud.callFunction({
+    name:'genealogy',
+    data:{
+      action:'search',
+      info:{
+        _id:info._id
+      }
+    }
+  })
 
+  if (searchRes.result._id) {
+    return searchRes.result
+  }
+  return {}
+}
 
 // 获取用户信息
 async function getUserInfo(){

@@ -33,13 +33,17 @@ Page({
       _id:option._id
     })
     console.log(option)
+    this.getGenealogyInfo()
   },
   getGenealogyInfo(){
+    console.log(this)
     wx.cloud.callFunction({
       name:'api',
       data:{
         action:'getGenealogyInfo',
-        _id:this._id
+        info:{
+          _id:this.data._id
+        }
       },
       complete:(res)=>{
         console.log(res)

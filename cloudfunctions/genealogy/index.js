@@ -9,7 +9,7 @@ exports.main = async (event, context) => {
       return addGenealogy(event.info)
       break;
     case 'search':
-      return searchGenealogy()
+      return searchGenealogy(event.info)
       break;
     case 'addNode':
       return addNode(event)
@@ -33,30 +33,12 @@ async function addGenealogy(info){
 }
 
 // 查询家谱
-async function searchGenealogy(){
-  let userInfo = {}
-  const userRes = await db.collection('user').where({
-    openId: wxContext.OPENID
-  }).get()
-  if (userRes.data.length) {
-    userInfo = userRes.data[0]
-    const genealogyRes = await db.collection('genealogy').where({_id:userInfo.genealogyId}).get()
-    console.log(genealogyRes)
-    if (genealogyRes.data[0]) {
-      return {
-        userInfo,
-        genealogyInfo:genealogyRes.data[0]
-      }
-    }
-    return {
-      userInfo,
-      genealogyInfo:{}
-    }
+async function searchGenealogy(info){
+  const genealogyRes = await db.collection('genealogy').where({_id:info._id}).get()
+  if (genealogyRes.data[0]) {
+    return genealogyRes.data[0]
   }
-  return {
-    userInfo:{},
-    genealogyInfo:{}
-  }
+  return {}
 }
 
 // 添加成员节点
