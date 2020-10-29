@@ -3,5 +3,5 @@
     <view class="family-view" wx:if="{{genealogyInfo.members}}">
       <familysBox members="{{genealogyInfo.members}}" bind:showPop="showPop"></familysBox>
     </view>
-    <identityPopBox wx:if="{{isPopShow}}" bind:closePop="closePop"></identityPopBox>
+    <identityPopBox wx:if="{{isPopShow}}" bind:closePop="closePop" genealogyId="{{genealogyInfo._id}}"></identityPopBox>
 </view>

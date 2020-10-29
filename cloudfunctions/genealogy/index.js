@@ -11,8 +11,8 @@ exports.main = async (event, context) => {
     case 'search':
       return searchGenealogy(event.info)
       break;
-    case 'addNode':
-      return addNode(event)
+    case 'updateMembers':
+      return updateMembers(event.info)
       break;
   }
 }
@@ -42,7 +42,7 @@ async function searchGenealogy(info){
 }
 
 // 添加成员节点
-async function addNode(info){
+async function updateMembers(info){
   /**
    * type
    * 0 父亲
@@ -50,37 +50,14 @@ async function addNode(info){
    * 2 伴侣
    */
   const genealogyRes = await db.collection('genealogy').doc(info.genealogyId).get()
-  const memberNode = findNode(genealogyRes.data.members, info.openId)
-  switch (info.type) {
-    case "0":
-      
-      break;
-    case "1":
-      
-      break;
-    case "2":
-      memberNode.companion = {
-        avatarUrl:'',
-        nickName:'',
-        tempId:'',
-        openId:''
-      }
-      break;
-  
-    default:
-      break;
-  }
-
   const updateRes = await db.collection('genealogy').doc(info.genealogyId).update({
     data:{
-      members:genealogyRes.data.members
+      members:info.members
     }
   })
-
   return {
-    genealogyInfo:genealogyRes.data
+    status:updateRes.status
   }
-
 }
 
 // 递归查找用户节点

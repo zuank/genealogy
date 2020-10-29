@@ -36,7 +36,6 @@ Page({
     this.getGenealogyInfo()
   },
   getGenealogyInfo(){
-    console.log(this)
     wx.cloud.callFunction({
       name:'api',
       data:{
@@ -46,7 +45,6 @@ Page({
         }
       },
       complete:(res)=>{
-        // this.genealogyInfo = res.result
         this.setData({
           genealogyInfo:res.result
         })

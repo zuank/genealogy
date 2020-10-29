@@ -5,7 +5,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    genealogyId:{
+      type:String
+    }
   },
 
   /**
@@ -14,7 +16,6 @@ Component({
   data: {
     activeIndex:'',
   },
-
   /**
    * 组件的方法列表
    */
@@ -28,13 +29,16 @@ Component({
       })
     },
     addNode(){
+      console.log(this.options)
       wx.cloud.callFunction({
-        name:'genealogy',
+        name:'api',
         data:{
           action:'addNode',
-          type:this.activeIndex,
-          genealogyId:app.globalData.genealogyId,
-          openId:app.globalData.chooseOpenId,
+          info:{
+            type:this.data.activeIndex,
+            genealogyId:this.data.genealogyId,
+            openId:app.globalData.chooseOpenId,
+          }
         },
         complete:(res)=>{
 

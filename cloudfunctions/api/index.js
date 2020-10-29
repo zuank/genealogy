@@ -17,10 +17,60 @@ exports.main = async (event, context) => {
     case "addGenealogy": // 新增一条家谱记录
       return addGenealogy(event.userInfo)
       break;
+    case "addNode": // 新增一条家庭成员
+      return addNode(event.info)
+      break;
+  }
+}
+
+
+// 添加家庭成员
+async function addNode(info){
+  const res = await getGenealogyInfo({_id:info.genealogyId})
+  console.log(res)
+  if (res._id) {
+    /**
+     * type
+     * 0 父亲
+     * 1 儿女
+     * 2 伴侣
+     */
+    const userInfo = findNode(res.members,info.openId)
+
+    switch (info.type) {
+      case "0":
+        
+        break;
+      case "1":
+      
+        break;
+      case "2":
+        userInfo.companion = {
+          avatarUrl:'',
+          nickName:'',
+          tempId:'',
+          openId:''
+        }
+        break;
+    }
+    console.log(userInfo)
+    const searchRes = await cloud.callFunction({
+      name:'genealogy',
+      data:{
+        action:'updateMembers',
+        info:{
+          genealogyId:info.genealogyId,
+          members:res.members
+        }
+      }
+    })
+
+    return res
+  } else {
+    return "没有找到家谱"
   }
 }
 // 获取家谱信息
-
 async function getGenealogyInfo(info){
   console.log(info)
   const searchRes = await cloud.callFunction({
@@ -144,4 +194,20 @@ async function addGenealogy(info){
   return {
     msg: '请重试'
   }
+}
+
+
+// 递归查找用户节点
+function findNode(obj, id, type){
+  let _obj = {}
+  if (obj[type||'openId'] == id){
+    _obj = obj
+  } else if (obj.members && obj.members.length) {
+    obj.members.forEach(item => {
+      if (findNode(item,id,type)[type||'openId']){
+        _obj = findNode(item,id,type)
+      }
+    });
+  }
+  return _obj
 }
