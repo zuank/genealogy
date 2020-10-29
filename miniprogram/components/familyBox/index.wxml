@@ -1,5 +1,5 @@
 <!--components/familyBox/index.wxml-->
 <view class="box">
-    <image class="face" src="{{face}}"></image>
-    <text class="name">{{nickName}}</text>
+    <image class="face" src="{{face||'./user-unlogin.png'}}"></image>
+    <text class="name">{{nickName||'待加入'}}</text>
 </view>
