@@ -35,22 +35,37 @@ async function addNode(info){
      * 1 儿女
      * 2 伴侣
      */
-    const userInfo = findNode(res.members,info.openId)
-
+    let userInfo = findNode(res.members,info.openId)
+    const time = new Date().getTime()
+    const params = {
+      avatarUrl:'',
+      nickName:'',
+      tempId:time,
+      openId:'',
+    }
     switch (info.type) {
       case "0":
-        
+        console.log(userInfo)
+        res.members = {
+          ...params,
+          companion:{},
+          members:[],
+          members:[userInfo]
+        }
         break;
       case "1":
-      
+        console.log(userInfo.members)
+        userInfo.members = [
+          ...userInfo.members,
+          {
+            ...params,
+            companion:{},
+            members:[]
+          }
+        ]
         break;
       case "2":
-        userInfo.companion = {
-          avatarUrl:'',
-          nickName:'',
-          tempId:'',
-          openId:''
-        }
+        userInfo.companion = params
         break;
     }
     console.log(userInfo)
@@ -65,7 +80,7 @@ async function addNode(info){
       }
     })
 
-    return res
+    return searchRes
   } else {
     return "没有找到家谱"
   }

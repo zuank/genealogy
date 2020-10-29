@@ -41,7 +41,7 @@ Component({
           }
         },
         complete:(res)=>{
-
+          console.log(res)
         }
       })
     }
