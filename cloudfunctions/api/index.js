@@ -45,10 +45,9 @@ async function addNode(info){
     }
     switch (info.type) {
       case "0":
-        console.log(userInfo)
         res.members = {
           ...params,
-          companion:{},
+          companion:params,
           members:[],
           members:[userInfo]
         }
