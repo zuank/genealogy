@@ -7,6 +7,15 @@ Component({
   properties: {
     genealogyId:{
       type:String
+    },
+    popConfig:{
+      type:Object,
+      value:{
+        canAddParents:false,
+        canAddSons:true,
+        canAddCompanion:false,
+        canInvite:false
+      }
     }
   },
 
@@ -20,16 +29,18 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    invite(){
+      this.triggerEvent('invite',{},{bubbles:true,composed:true})
+    },
     close(){
       this.triggerEvent('closePop',{},{bubbles:true,composed:true})
     },
-    shareInvite(e){
+    changeIndex(e){
       this.setData({
         activeIndex:e.currentTarget.dataset.type
       })
     },
     addNode(){
-      console.log(this.options)
       wx.cloud.callFunction({
         name:'api',
         data:{
@@ -37,7 +48,8 @@ Component({
           info:{
             type:this.data.activeIndex,
             genealogyId:this.data.genealogyId,
-            openId:app.globalData.chooseOpenId,
+            userId:app.globalData.userId,
+            IDType:app.globalData.IDType||"openId"
           }
         },
         complete:(res)=>{

@@ -22,7 +22,7 @@ App({
 
     this.globalData = {
       genealogyId:'',
-      chooseOpenId:''
+      userId:''
     }
   }
 })

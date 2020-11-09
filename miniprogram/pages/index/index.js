@@ -44,7 +44,7 @@ Page({
         this.setData({
           userInfo: res.result,
         })
-        app.globalData.userInfo = res.result
+        console.log(app.globalData)
       }
     })
   },
@@ -65,7 +65,6 @@ Page({
         this.setData({
           userInfo: res.result,
         })
-        app.globalData.userInfo = res.result
       }
     })
   },

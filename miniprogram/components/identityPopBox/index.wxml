@@ -2,16 +2,26 @@
 <view class="pop">
   <view class="cover" bind:tap="close"></view>
   <view class="types">
-    <view class="type-item {{activeIndex=='0'?'active':''}}" bind:tap="shareInvite" data-type='0'>添加父亲位置</view>
-    <view class="type-item {{activeIndex=='1'?'active':''}}" bind:tap="shareInvite" data-type='1'>添加儿女位置</view>
-    <view class="type-item {{activeIndex=='2'?'active':''}}" bind:tap="shareInvite" data-type='2'>添加伴侣位置</view>
+    <view wx:if="{{popConfig.canAddParents}}" class="type-item {{activeIndex=='0'?'active':''}}" bind:tap="changeIndex" data-type='0'>添加父亲位置</view>
+    <view wx:if="{{popConfig.canAddSons}}" class="type-item {{activeIndex=='1'?'active':''}}" bind:tap="changeIndex" data-type='1'>添加儿女位置</view>
+    <view wx:if="{{popConfig.canAddCompanion}}" class="type-item {{activeIndex=='2'?'active':''}}" bind:tap="changeIndex" data-type='2'>添加伴侣位置</view>
     
-    <button
-        disabled="{{activeIndex==''}}"
-        type="primary"
-        bind:tap="addNode"
-    >确认添加
-    </button>
+    <view class="btns">
+      <button
+          disabled="{{activeIndex==''}}"
+          type="primary"
+          bind:tap="addNode"
+      >确认添加
+      </button>
+
+      <button
+          wx:if="{{popConfig.canInvite}}"
+          type="primary"
+          bind:tap="invite"
+          open-type="share"
+      >邀请好友
+      </button>
+    </view>
   </view>
 
 </view>

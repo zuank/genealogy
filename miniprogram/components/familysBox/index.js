@@ -22,8 +22,9 @@ Component({
    */
   methods: {
     setBaseUser:function() {
+      app.globalData.userId = this.data.members.openId||this.data.members.tempId
+      app.globalData.IDType = this.data.members.openId?"openId":'tempId'
       this.triggerEvent('showPop',{},{bubbles:true,composed:true})
-      app.globalData.chooseOpenId = this.data.members.openId
     }
   }
 })

@@ -35,7 +35,7 @@ async function addNode(info){
      * 1 儿女
      * 2 伴侣
      */
-    let userInfo = findNode(res.members,info.openId)
+    let userInfo = findNode(res.members,info.userId)
     const time = new Date().getTime()
     const params = {
       avatarUrl:'',

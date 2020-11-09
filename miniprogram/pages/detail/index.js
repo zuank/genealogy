@@ -1,11 +1,30 @@
 //index.js
 const app = getApp()
-
+// 递归查找用户节点
+function findNode(obj, id, type){
+  let _obj = {}
+  if (obj[type||'openId'] == id){
+    _obj = obj
+  } else if (obj.members && obj.members.length) {
+    obj.members.forEach(item => {
+      if (findNode(item,id,type)[type||'openId']){
+        _obj = findNode(item,id,type)
+      }
+    });
+  }
+  return _obj
+}
 Page({
   data: {
     genealogyInfo:{},
     isPopShow: false,
-    _id: ''
+    _id: '',
+    popConfig:{
+      canAddParents:false,
+      canAddSons:true,
+      canAddCompanion:false,
+      canInvite:false
+    }
   },
 
   onShareAppMessage: function (res) {
@@ -15,19 +34,31 @@ Page({
     }
     return {
       title: app.globalData.genealogyId,
-      path: `/pages/index/index?genealogyId=${app.globalData.genealogyId}`
+      path: `/pages/index/index?genealogyId=${app.globalData.genealogyId}&userId=${app.globalData.userId}`
     }
   },
   showPop:function(){
     this.setData({
       isPopShow: true
     })
+    // 判断该节点都否可以添加 邀请
+    const res = findNode(this.data.genealogyInfo.members,app.globalData.userId,app.globalData.IDType)
+    this.setData({
+      popConfig:{
+        canAddParents:this.data.genealogyInfo.members[app.globalData.IDType]==res[app.globalData.IDType],
+        canAddSons:true,
+        canAddCompanion:res.companion.openId==undefined,
+        canInvite:app.globalData.IDType=="tempId"||(!res.companion.openId)
+      }
+    })
+    
   },
   closePop:function(){
     this.setData({
       isPopShow: false
     })
   },
+  
   onLoad:function(option){
     this.setData({
       _id:option._id
