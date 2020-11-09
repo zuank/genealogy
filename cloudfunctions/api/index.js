@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
       return getUserInfo()
       break;
     case "addGenealogy": // 新增一条家谱记录
-      return addGenealogy(event.userInfo)
+      return addGenealogy(event)
       break;
     case "addNode": // 新增一条家庭成员
       return addNode(event.info)
@@ -125,11 +125,13 @@ async function getUserInfo(){
 // 添加一个家谱记录
 async function addGenealogy(info){
   const userInfo = info.userInfo
+  const GenealogyName = info.name||'幸福一家人' // 家谱名称
   const params = {
       creator:wxContext.OPENID, // 创建者OPENID
-      name:info.name||'幸福一家人', // 家谱名称
+      name:GenealogyName, // 家谱名称
       members:{
-        ...userInfo,
+        nickName:userInfo.nickName,
+        avatarUrl:userInfo.avatarUrl,
         openId: wxContext.OPENID,
         members:[],
         companion:{}
@@ -188,7 +190,7 @@ async function addGenealogy(info){
           info:{
             ...userInfo,
             openId: wxContext.OPENID,
-            genealogyInfoList:[{name:'',_id:genealogyRes.result._id}]
+            genealogyInfoList:[{name:GenealogyName,_id:genealogyRes.result._id}]
           }
         }
       })

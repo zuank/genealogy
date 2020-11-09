@@ -50,11 +50,15 @@ Page({
   },
   //新建家谱
   onAddGenealogy: function(e) {
+    console.log(e.detail.userInfo)
     wx.cloud.callFunction({
       name:'api',
       data:{
         action:'addGenealogy',
-        userInfo:e.detail.userInfo
+        userInfo:{
+          nickName:e.detail.userInfo.nickName,
+          avatarUrl:e.detail.userInfo.avatarUrl,
+        }
       },
       complete:(res)=>{
         console.log(res)
