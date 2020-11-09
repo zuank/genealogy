@@ -51,5 +51,11 @@ Page({
         console.log(res)
       }
     })
+  },
+  addComplete(){
+    this.setData({
+      isPopShow:false
+    })
+    this.getGenealogyInfo()
   }
 })
