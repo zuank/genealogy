@@ -19,11 +19,6 @@
     "name":"幸福一家人",    // 家谱名称
     "members":{           // 成员
       "nickName":"油条子", // 家族顶点昵称 
-      "gender":1,
-      "language":"zh_CN",
-      "city":"Suzhou",
-      "province":"Jiangsu",
-      "country":"China",
       "avatarUrl":"",
       "companion":{
         "avatarUrl":"",
