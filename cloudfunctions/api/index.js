@@ -26,6 +26,7 @@ exports.main = async (event, context) => {
 
 // 添加家庭成员
 async function addNode(info){
+  console.log(info)
   const res = await getGenealogyInfo({_id:info.genealogyId})
   console.log(res)
   if (res._id) {
@@ -35,7 +36,8 @@ async function addNode(info){
      * 1 儿女
      * 2 伴侣
      */
-    let userInfo = findNode(res.members,info.userId)
+    console.log(res.members,info.userId)
+    let userInfo = findNode(res.members,info.userId,info.IDType)
     const time = new Date().getTime()
     const params = {
       avatarUrl:'',
