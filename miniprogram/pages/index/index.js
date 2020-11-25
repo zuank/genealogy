@@ -7,7 +7,8 @@ Page({
    */
   data: {
     userInfo:{},
-    hasAuth:false
+    hasAuth:false,
+    loading:true
   },
 
   /**
@@ -22,6 +23,10 @@ Page({
             hasAuth: true
           })
           this.getUserInfo()
+        } else {
+          this.setData({
+            loading: false
+          })
         }
       }
     })
@@ -43,6 +48,7 @@ Page({
         console.log(res)
         this.setData({
           userInfo: res.result,
+          loading: false
         })
         console.log(app.globalData)
       }

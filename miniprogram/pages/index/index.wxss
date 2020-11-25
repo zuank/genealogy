@@ -24,7 +24,7 @@ page {
   width: 400rpx;
   margin: 40rpx;
   border-radius: 20rpx;
-  border: 1rpx solid #cccccc;
+  border: 2rpx solid #cccccc;
   display: flex;
   align-items: center;
   justify-content: center;

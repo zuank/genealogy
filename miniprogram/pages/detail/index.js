@@ -28,13 +28,14 @@ Page({
   },
 
   onShareAppMessage: function (res) {
+    console.log(`/pages/index/index?genealogyId=${app.globalData.genealogyId}&userId=${app.globalData.inviteId}`)
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
     return {
-      title: app.globalData.genealogyId,
-      path: `/pages/index/index?genealogyId=${app.globalData.genealogyId}&userId=${app.globalData.userId}`
+      title: '邀请你加入家谱',
+      path: `/pages/index/index?genealogyId=${app.globalData.genealogyId}&userId=${app.globalData.inviteId}`
     }
   },
   showPop:function(){
@@ -60,6 +61,7 @@ Page({
   },
   
   onLoad:function(option){
+    app.globalData.genealogyId = option._id
     this.setData({
       _id:option._id
     })

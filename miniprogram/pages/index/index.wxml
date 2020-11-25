@@ -6,7 +6,7 @@
     </view>
   </view>
   <button
-        wx:if="{{!userInfo.genealogyInfoList||userInfo.genealogyInfoList.length<6}}"
+        wx:if="{{!loading}}"
         open-type="getUserInfo"
         bindgetuserinfo="onAddGenealogy"
         type="default"
@@ -14,7 +14,7 @@
     >开始创建家谱
     </button>
     <button
-        wx:if="{{!hasAuth}}"
+        wx:if="{{!hasAuth&&!loading}}"
         open-type="getUserInfo"
         bindgetuserinfo="onGetAuth"
         type="default"
