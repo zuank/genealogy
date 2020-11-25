@@ -14,7 +14,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function() {
+  onLoad: function(option) {
     // 获取授权信息
     wx.getSetting({
       success: res => {
@@ -22,7 +22,11 @@ Page({
           this.setData({
             hasAuth: true
           })
-          this.getUserInfo()
+          if (option.invite == 1) {
+            this.joinGenealogy(option.genealogyId,option.userId)
+          } else {
+            this.getUserInfo()
+          }
         } else {
           this.setData({
             loading: false
@@ -50,13 +54,35 @@ Page({
           userInfo: res.result,
           loading: false
         })
-        console.log(app.globalData)
+      }
+    })
+  },
+  //加入家谱
+  joinGenealogy(genealogyId,userId){
+    wx.getUserInfo({
+      success: function(res) {
+        wx.cloud.callFunction({
+          name:'api',
+          data:{
+            action:'joinGenealogy',
+            info:{
+              genealogyId,
+              userId,
+              userInfo:{
+                nickName:res.userInfo.nickName,
+                avatarUrl:res.userInfo.avatarUrl,
+              }
+            },
+          },
+          complete:(res)=>{
+            console.log(res)
+          }
+        })
       }
     })
   },
   //新建家谱
   onAddGenealogy: function(e) {
-    console.log(e.detail.userInfo)
     wx.cloud.callFunction({
       name:'api',
       data:{

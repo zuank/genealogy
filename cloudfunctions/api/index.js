@@ -20,6 +20,8 @@ exports.main = async (event, context) => {
     case "addNode": // 新增一条家庭成员
       return addNode(event.info)
       break;
+    case "joinGenealogy": // 加入家谱
+      return joinGenealogy(event.info)
   }
 }
 
@@ -70,22 +72,45 @@ async function addNode(info){
         break;
     }
     console.log(userInfo)
-    const searchRes = await cloud.callFunction({
-      name:'genealogy',
-      data:{
-        action:'updateMembers',
-        info:{
-          genealogyId:info.genealogyId,
-          members:res.members
-        }
-      }
-    })
-
+    const searchRes = await updateMembers(info.genealogyId,res.members)
     return searchRes
   } else {
     return "没有找到家谱"
   }
 }
+
+// 加入家谱
+async function joinGenealogy(info){
+  console.log(info)
+  const res = await getGenealogyInfo({_id:info.genealogyId})
+  if (res._id){
+    let userInfo = findNode(res.members,info.userId,"tempId")
+    userInfo.nickName = info.userInfo.nickName
+    userInfo.avatarUrl = info.userInfo.avatarUrl
+    userInfo.openId = wxContext.OPENID
+    console.log(userInfo)
+    const searchRes = await updateMembers(info.genealogyId,res.members)
+    return searchRes
+  } else {
+    return "没有找到家谱"
+  }
+}
+
+// 更新家谱
+async function updateMembers(genealogyId,members){
+  return await cloud.callFunction({
+    name:'genealogy',
+    data:{
+      action:'updateMembers',
+      info:{
+        genealogyId,
+        members
+      }
+    }
+  })
+}
+
+
 // 获取家谱信息
 async function getGenealogyInfo(info){
   console.log(info)
@@ -220,6 +245,8 @@ function findNode(obj, id, type){
   let _obj = {}
   if (obj[type||'openId'] == id){
     _obj = obj
+  } else if (obj.companion[type||'openId'] == id){
+    _obj = obj.companion
   } else if (obj.members && obj.members.length) {
     obj.members.forEach(item => {
       if (findNode(item,id,type)[type||'openId']){

@@ -35,7 +35,7 @@ Page({
     }
     return {
       title: '邀请你加入家谱',
-      path: `/pages/index/index?genealogyId=${app.globalData.genealogyId}&userId=${app.globalData.inviteId}`
+      path: `/pages/index/index?genealogyId=${app.globalData.genealogyId}&userId=${app.globalData.inviteId}&invite=1`
     }
   },
   showPop:function(){
