@@ -7,6 +7,7 @@
   margin: 10rpx;
   border: 1rpx solid #ccc;
   background-color: #cf8d2e;
+  border-radius: 10rpx;
 }
 .warp .warp  {
   background-color: #e4e932;

@@ -12,4 +12,5 @@
     width: 120rpx;
     height: 120rpx;
     display: flex;
+    border-radius: 50%;
 }
