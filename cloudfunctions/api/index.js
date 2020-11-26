@@ -85,9 +85,12 @@ async function joinGenealogy(info){
   const res = await getGenealogyInfo({_id:info.genealogyId})
   if (res._id){
     let userInfo = findNode(res.members,info.userId,"tempId")
-    userInfo.nickName = info.userInfo.nickName
-    userInfo.avatarUrl = info.userInfo.avatarUrl
-    userInfo.openId = wxContext.OPENID
+    if (userInfo.openId == '') {
+      userInfo.nickName = info.userInfo.nickName
+      userInfo.avatarUrl = info.userInfo.avatarUrl
+      userInfo.openId = wxContext.OPENID
+      await addUser(info.userInfo,res.name,info.genealogyId,)
+    }
     console.log(userInfo)
     const searchRes = await updateMembers(info.genealogyId,res.members)
     return searchRes
@@ -210,17 +213,8 @@ async function addGenealogy(info){
       }
     } else {
       // 新增一个用户
-      const addRes = await cloud.callFunction({
-        name:'user',
-        data:{
-          action:'addUser',
-          info:{
-            ...userInfo,
-            openId: wxContext.OPENID,
-            genealogyInfoList:[{name:GenealogyName,_id:genealogyRes.result._id}]
-          }
-        }
-      })
+      const addRes = await addUser(userInfo,GenealogyName,genealogyRes.result._id)
+      
       if (addRes.result._id) {
         return {
           _id:addRes.result._id,
@@ -238,7 +232,20 @@ async function addGenealogy(info){
     msg: '请重试'
   }
 }
-
+// 新增用户
+async function addUser(userInfo,genealogyName,genealogyId) {
+  return await cloud.callFunction({
+    name:'user',
+    data:{
+      action:'addUser',
+      info:{
+        ...userInfo,
+        openId: wxContext.OPENID,
+        genealogyInfoList:[{name:genealogyName,_id:genealogyId}]
+      }
+    }
+  })
+}
 
 // 递归查找用户节点
 function findNode(obj, id, type){

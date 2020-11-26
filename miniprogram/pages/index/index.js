@@ -8,13 +8,25 @@ Page({
   data: {
     userInfo:{},
     hasAuth:false,
-    loading:true
+    loading:true,
+    inviteInfo:{
+      genealogyId:'',
+      userId:'',
+      joined:false
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(option) {
+    this.setData({
+      inviteInfo:{
+        genealogyId:option.genealogyId,
+        userId:option.userId,
+        joined:false
+      }
+    })
     // 获取授权信息
     wx.getSetting({
       success: res => {
@@ -22,11 +34,7 @@ Page({
           this.setData({
             hasAuth: true
           })
-          if (option.invite == 1) {
-            this.joinGenealogy(option.genealogyId,option.userId)
-          } else {
-            this.getUserInfo()
-          }
+          this.init()
         } else {
           this.setData({
             loading: false
@@ -34,6 +42,14 @@ Page({
         }
       }
     })
+  },
+  // 初始化
+  init(){
+    if (this.data.inviteInfo.userId&&!this.data.inviteInfo.joined) {
+      this.joinGenealogy(this.data.inviteInfo.genealogyId,this.data.inviteInfo.userId)
+    } else {
+      this.getUserInfo()
+    }
   },
   // 获取授权
   onGetAuth(e){
@@ -60,7 +76,7 @@ Page({
   //加入家谱
   joinGenealogy(genealogyId,userId){
     wx.getUserInfo({
-      success: function(res) {
+      success: (res)=> {
         wx.cloud.callFunction({
           name:'api',
           data:{
@@ -75,6 +91,13 @@ Page({
             },
           },
           complete:(res)=>{
+            this.setData({
+              inviteInfo:{
+                ...this.data.inviteInfo,
+                joined:true,
+              }
+            })
+            this.init()
             console.log(res)
           }
         })
