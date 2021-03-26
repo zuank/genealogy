@@ -21,3 +21,4 @@
     >查看家谱
     </button>
 </view>
+<mp-dialog/>
