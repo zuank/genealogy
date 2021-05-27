@@ -1,4 +1,6 @@
 // miniprogram/pages/index/index.js
+import {request} from "../../utils/request";
+
 const app = getApp()
 Page({
 
@@ -58,49 +60,37 @@ Page({
     }
   },
   // 查询家谱
-  getUserInfo: function() {
-    wx.cloud.callFunction({
-      name:'api',
-      data:{
-        action:'getUserInfo'
-      },
-      complete:(res)=>{
-        console.log(res)
-        this.setData({
-          userInfo: res.result,
-          loading: false
-        })
-      }
+  async getUserInfo() {
+    const res = await request({
+      action:'getUserInfo'
+    })
+    this.setData({
+      userInfo: res.result,
+      loading: false
     })
   },
   //加入家谱
   joinGenealogy(genealogyId,userId){
     wx.getUserInfo({
-      success: (res)=> {
-        wx.cloud.callFunction({
-          name:'api',
-          data:{
-            action:'joinGenealogy',
-            info:{
-              genealogyId,
-              userId,
-              userInfo:{
-                nickName:res.userInfo.nickName,
-                avatarUrl:res.userInfo.avatarUrl,
-              }
-            },
+      success: async (res)=> {
+        await request({
+          action:'joinGenealogy',
+          info:{
+            genealogyId,
+            userId,
+            userInfo:{
+              nickName:res.userInfo.nickName,
+              avatarUrl:res.userInfo.avatarUrl,
+            }
           },
-          complete:(res)=>{
-            this.setData({
-              inviteInfo:{
-                ...this.data.inviteInfo,
-                joined:true,
-              }
-            })
-            this.init()
-            console.log(res)
+        })
+        this.setData({
+          inviteInfo:{
+            ...this.data.inviteInfo,
+            joined:true,
           }
         })
+        this.init()
       }
     })
   },

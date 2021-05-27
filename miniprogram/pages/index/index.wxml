@@ -1,24 +1,32 @@
 <!--miniprogram/pages/index/index.wxml-->
-<view class="container">
-  <view class="genealogy-list" wx:if="{{userInfo.genealogyInfoList.length}}">
-    <view class="genealogy-item" wx:for="{{userInfo.genealogyInfoList}}" wx:key="index" bind:tap="jumpDeatil" data-id="{{item._id}}">
-      {{item.name}}
-    </view>
+<view class="flex-column-center has-nav">
+  <view class="flex-column-center">
+    <i-card title="卡片标题" extra="额外内容" thumb="https://i.loli.net/2017/08/21/599a521472424.jpg">
+      <view slot="content">内容不错</view>
+      <view slot="footer">尾部内容</view>
+    </i-card>
+<!--    <view class="genealogy-list" wx:if="{{userInfo.genealogyInfoList.length}}">-->
+<!--      <view class="genealogy-item" wx:for="{{userInfo.genealogyInfoList}}" wx:key="index" bind:tap="jumpDeatil" data-id="{{item._id}}">-->
+<!--        {{item.name}}-->
+<!--      </view>-->
+<!--    </view>-->
+<!--    <button-->
+<!--            wx:if="{{!loading}}"-->
+<!--            open-type="getUserInfo"-->
+<!--            bindgetuserinfo="onAddGenealogy"-->
+<!--            type="default"-->
+<!--            class="new-genealogy"-->
+<!--    >开始创建家谱-->
+<!--    </button>-->
+<!--    <button-->
+<!--            wx:if="{{!hasAuth&&!loading}}"-->
+<!--            open-type="getUserInfo"-->
+<!--            bindgetuserinfo="onGetAuth"-->
+<!--            type="default"-->
+<!--    >查看家谱-->
+<!--    </button>-->
   </view>
-  <button
-        wx:if="{{!loading}}"
-        open-type="getUserInfo"
-        bindgetuserinfo="onAddGenealogy"
-        type="default"
-        class="new-genealogy"
-    >开始创建家谱
-    </button>
-    <button
-        wx:if="{{!hasAuth&&!loading}}"
-        open-type="getUserInfo"
-        bindgetuserinfo="onGetAuth"
-        type="default"
-    >查看家谱
-    </button>
+
+
+
 </view>
-<mp-dialog/>
