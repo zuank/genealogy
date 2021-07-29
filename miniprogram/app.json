@@ -10,6 +10,5 @@
     "navigationBarTitleText": "全民家谱",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json",
-  "style": "v2"
+  "sitemapLocation": "sitemap.json"
 }

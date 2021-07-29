@@ -34,7 +34,10 @@
     "userConfirmedUseCompilerModuleSwitch": false,
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": [],
+    "packNpmRelationList": [{
+      "packageJsonPath": "./package.json",
+      "miniprogramNpmDistDir": "./miniprogram/"
+    }],
     "minifyWXSS": true
   },
   "appid": "wx3d168b6b1fc82217",
