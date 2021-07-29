@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "i-card": "/iview/card/index"
+    "van-button": "@vant/weapp/button/index",
+    "navBarBox":"../../components/navBarBox/index"
   }
 }
