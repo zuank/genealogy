@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "van-button": "@vant/weapp/button/index",
-    "navBarBox":"../../components/navBarBox/index"
+    "navBarBox":"../../components/navBarBox/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index"
   }
 }

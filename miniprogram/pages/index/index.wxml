@@ -1,24 +1,21 @@
-<!--miniprogram/pages/index/index.wxml-->
-  <view class="flex-column-center">
-   <view class="genealogy-list" wx:if="{{userInfo.genealogyInfoList.length}}">
-     <view class="genealogy-item" wx:for="{{userInfo.genealogyInfoList}}" wx:key="index" bind:tap="jumpDeatil" data-id="{{item._id}}">
-       {{item.name}}
-     </view>
-   </view>
-   <button
-           wx:if="{{!loading}}"
-           open-type="getUserInfo"
-           bindgetuserinfo="onAddGenealogy"
-           type="default"
-           class="new-genealogy"
-   >开始创建家谱
-   </button>
-   <button
-           wx:if="{{!hasAuth&&!loading}}"
-           open-type="getUserInfo"-->
-           bindgetuserinfo="onGetAuth"
+<!-- miniprogram/pages/index/index.wxml -->
+<van-cell-group wx:if="{{userInfo.genealogyInfoList.length}}">
+  <van-cell title="{{item.name}}" value="内容"  wx:for="{{userInfo.genealogyInfoList}}" wx:key="index" bind:tap="jumpDeatil" data-id="{{item._id}}" />
+  <!-- <van-cell title="单元格" value="内容" label="描述信息" border="{{ false }}" /> -->
+</van-cell-group>
+<view class="flex-column-center">
+  <!-- <view class="genealogy-list" wx:if="{{userInfo.genealogyInfoList.length}}">
+    <view class="genealogy-item" wx:for="{{userInfo.genealogyInfoList}}" wx:key="index" bind:tap="jumpDeatil" data-id="{{item._id}}">
+      {{item.name}}
+    </view>
+  </view> -->
+  <!-- <button wx:if="{{!loading}}" open-type="getUserInfo" bindgetuserinfo="onAddGenealogy" type="default" class="new-genealogy">
+    开始创建家谱
+  </button>
+  <button wx:if="{{!hasAuth&&!loading}}" open-type="getUserInfo"
+    bindgetuserinfo="onGetAuth"
            type="default"
    >查看家谱
-    </button>
-  </view>
-<navBarBox/>
+  </button> -->
+</view>
+<navBarBox />
